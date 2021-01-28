@@ -1,5 +1,6 @@
 package hello.hellospring.service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
@@ -15,7 +16,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -26,6 +27,7 @@ public class MemberService {
         validateDuplicateMember(member); //중복 회원 검증
         memberRepository.save(member);
         return member.getId();
+
     }
 
     private void validateDuplicateMember(Member member) {
